@@ -2,7 +2,7 @@ import numpy as np
 from numpy import genfromtxt
 
 #parse csv file
-brain = genfromtxt('../data/rois5.csv', delimiter=',')
+brain = genfromtxt('../data/rois2.csv', delimiter=',')
 
 #calculate brain tone, lowest and highest piano key
 mean = np.mean(brain)
@@ -22,9 +22,17 @@ import pentatonic_scale as scale
 
 keys = []
 
-for i in xrange(lowest_key,highest_key, 12):
+scale_tones = scale.minor_pentatonic(lowest_key - 12)
+for i in scale_tones:
+	if i >= 36:
+		keys.append(i)
+
+for i in xrange(lowest_key, 84, 12):
 	scale_tones = scale.minor_pentatonic(i)
-	keys.extend(scale_tones)
+	for j in scale_tones:
+		if j < 84:
+			keys.append(j)
+
 
 
 print keys
@@ -51,18 +59,33 @@ ranged_brain = np.apply_along_axis(x, 0, brain)
 ranged_brain = ranged_brain.astype(int)
 
 
-def adjust_number(num):
-	if num in keys:
-		return num
-	else:
-		for i in range(len(keys)):
-			if keys[i] > num:
-				return keys[i-1]
+
+for i in range(len(ranged_brain[0])):	
+	col = ranged_brain[:,i]
+	
+	for j in range(len(col)):
+		num = col[j]
+		#print num
+		if num not in keys:#go up or down?
+			down = True
+
+			#if it's not the lasf
+			if j <= len(col)-2:
+				if col[j+1] >= num:
+					down = False
+
+			for k in range(len(keys)):
+				if keys[k] > num:
+					if down:
+						col[j] = keys[k-1]
+						print num, '->', keys[k-1]
+						break
+					else:
+						col[j] = keys[k]
+						print num, '->', keys[k]
+						break
 
 
 
-vector_func = np.vectorize(adjust_number)
-scaled_brain = vector_func(ranged_brain)
 
-
-np.savetxt('../data/rois5_minor_pentatonic.csv', scaled_brain, delimiter=",", fmt="%d")
+np.savetxt('../data/rois2__2.csv', ranged_brain, delimiter=",", fmt="%d")

@@ -14,7 +14,7 @@ public class Main {
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		int[][] musics = new int[236][200];
-		BufferedReader br = new BufferedReader(new FileReader("/home/caroline/Documents/projects/Brain-Orchestra/data/rois2_minor_pentatonic.csv"));
+		BufferedReader br = new BufferedReader(new FileReader("/home/caroline/Documents/projects/Brain-Orchestra/data/rois2__1.csv"));
 		String line;
 		int l = 0;
 		while ((line = br.readLine()) != null) {
@@ -32,11 +32,11 @@ public class Main {
 			
 			MidiChannel[] channels = synthesizer.getChannels();
 			
-			for(int i = 0; i < 200; i++) {
+			for(int i = 0; i < 236; i++) {
 				for(int j = 0; j < rois.length; j++) {
 					
 					int pitch = musics[i][rois[j]-1];
-					//System.out.println(pitch);
+					System.out.println(pitch);
 					channels[0].noteOn(pitch, 85);
 					
 				}
