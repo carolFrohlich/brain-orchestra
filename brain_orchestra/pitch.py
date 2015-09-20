@@ -40,7 +40,7 @@ def generate_pitches(brain):
 
 	# x' = ((x - a) / (b - a)) * (b' - a') + a'
 	def scale_column(column):
-		return ((column - np.min(column)) / (np.max(column) - np.min(column))) * (keys[-1] - keys[0]) + keys[0]
+		return ((column - np.min(column)) / (np.max(column) - np.min(column))) * (keys[-1] - keys[0]) + keys[0]   
 
 
 	ranged_brain = np.apply_along_axis(scale_column, 0, brain)
