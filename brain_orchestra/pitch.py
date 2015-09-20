@@ -52,22 +52,9 @@ def generate_pitches(brain):
 		col = ranged_brain[:,i]
 		
 		for j in range(len(col)):
-			num = col[j]
-			#print num
-			if num not in keys:#go up or down?
-				down = True
+			if col[j] not in keys:#go up or down?
+				col[j] = min(keys, key=lambda x:abs(x-col[j]))
 
-				#if it's not the lasf
-				if j <= len(col)-2:
-					if col[j+1] >= num:
-						down = False
-
-				for k in range(len(keys)):
-					if keys[k] > num:
-						if down:
-							col[j] = keys[k-1]
-						else:
-							col[j] = keys[k]
 
 
 	return ranged_brain
