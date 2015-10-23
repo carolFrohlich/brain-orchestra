@@ -6,7 +6,7 @@ def generate_tempo(brain, tempo_notes=[1,2,4,8]):
     #generate tempo file
     tempos = np.ones(brain.shape)
     #tempos = tempos.fill(tempo_notes[-1])
-    tempos2 = np.ones((236, 1))
+    tempos2 = np.ones((len(brain), 1))
 
 
     for i in range(brain.shape[1]):

@@ -52,7 +52,7 @@ def generate_pitches(brain):
 		col = ranged_brain[:,i]
 		
 		for j in range(len(col)):
-			if col[j] not in keys:#go up or down?
+			if col[j] not in keys:
 				col[j] = min(keys, key=lambda x:abs(x-col[j]))
 
 

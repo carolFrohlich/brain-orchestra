@@ -2,10 +2,10 @@ import numpy as np
 from numpy import genfromtxt
 
 
-brain = genfromtxt('../data/rois2.csv', delimiter=',')
+brain = genfromtxt('../data/filt_global_OHSU_0050142_rois_cc200.1D', delimiter='\t')
 corr_matrix  = np.corrcoef(brain, rowvar=0)
 
-np.fill_diagonal(corr_matrix, 0.0)
+np.fill_diagonal(corr_matrix, 100.0)
 corr_matrix = np.tril(corr_matrix)
 
 
@@ -14,12 +14,13 @@ print np.max(corr_matrix)
 
 
 
-indices = np.where(corr_matrix >= 0.9)
+#indices = np.where(corr_matrix >= -0.01) and np.where(corr_matrix <= 0.01)
+indices = np.where(corr_matrix <= -0.8)
 print len(indices[0])
 
 for i in range(len(indices[0])):
-
-    print indices[0][i], indices[1][i], corr_matrix[indices[0][i]][indices[1][i]]
+    if indices[0][i] > indices[1][i]:
+        print indices[0][i], indices[1][i], corr_matrix[indices[0][i]][indices[1][i]]
 
 
 

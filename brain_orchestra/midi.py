@@ -15,38 +15,50 @@ def save_midi(pitches, tempo, rois, file_name):
         # Add track name and tempo.
         MyMIDI.addTrackName(track,time,str(i))
         MyMIDI.addTempo(track,time,120)
-        MyMIDI.addProgramChange(track,0, time, 1)
+        MyMIDI.addProgramChange(track,0, time, rois[i]['instrument'])
 
-        pitch_roi = pitches[:,rois[i]]
+        pitch_roi = pitches[:,rois[i]['id']]
 
-        tempo_roi = tempo[:,rois[i]]
+        tempo_roi = tempo[:,rois[i]['id']]
 
         total_time = 0
 
-        print '- - - - - - - - - - - ', rois[i], '- - - - - - - - - - - ' 
+        print '- - - - - - - - - - - ', rois[i]['id'], '- - - - - - - - - - - ' 
 
-        for j in range(236):
+        for j in range(len(pitches)):
 
             channel = 0
             pitch = pitch_roi[j]
             time = total_time
             print j, tempo_roi[j]
-            duration = 2.0 / float(tempo_roi[j])
+            duration = 0.5 / float(tempo_roi[j])
+            print duration
             volume = 100
             total_time += duration
 
             print 'pitch:', pitch, 'time:', time, 'duration:', duration, 'tempo:', tempo_roi[j]
 
-            # Now add the note.
-            if tempo_roi[j] ==1:
-                volume = 100
-            elif tempo_roi[j] == 2:
-                volume = 80
-            elif tempo_roi[j] == 4:
-                volume = 75
+            #set volume. the solo is always higher
+            if rois[i]['solo']:
+                if tempo_roi[j] ==1:
+                    volume = 100
+                elif tempo_roi[j] == 2:
+                    volume = 80
+                elif tempo_roi[j] == 4:
+                    volume = 75
+                else:
+                    volume = 50
             else:
-                volume = 50
+                if tempo_roi[j] ==1:
+                    volume = 70
+                elif tempo_roi[j] == 2:
+                    volume = 50
+                elif tempo_roi[j] == 4:
+                    volume = 45
+                else:
+                    volume = 20
 
+            # Now add the note.
             MyMIDI.addNote(track,channel,pitch,time,duration, volume)
 
 
