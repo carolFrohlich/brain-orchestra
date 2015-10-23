@@ -8,9 +8,7 @@ def generate_tempo(brain, tempo_notes=[1,2,4,8]):
     #tempos = tempos.fill(tempo_notes[-1])
     tempos2 = np.ones((len(brain), 1))
 
-
     for i in range(brain.shape[1]):
-
         smallest_jump_index = []
         bigest_jump_index = []
         min_difference = 10000.0
@@ -41,7 +39,7 @@ def generate_tempo(brain, tempo_notes=[1,2,4,8]):
         range_min = min_difference
         range_max = min_difference + step
 
-        for i in range(num_ranges):
+        for k in range(num_ranges):
             new_range = [range_min,range_max]
             ranges.append(new_range)
             range_min = range_max

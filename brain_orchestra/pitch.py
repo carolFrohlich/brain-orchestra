@@ -12,13 +12,13 @@ def calculate_lowest_key(tone):
 def generate_keys(scale, lowest_key):
 	keys = []
 
-	scale_tones = scale.minor_pentatonic(lowest_key - 12)
+	scale_tones = scale.minor_blues(lowest_key - 12)
 	for i in scale_tones:
 		if i >= 36:
 			keys.append(i)
 
 	for i in xrange(lowest_key, 85, 12):
-		scale_tones = scale.minor_pentatonic(i)
+		scale_tones = scale.minor_blues(i)
 		for j in scale_tones:
 			if j <= 84:
 				keys.append(j)

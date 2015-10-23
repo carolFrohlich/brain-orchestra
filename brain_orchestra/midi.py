@@ -29,6 +29,8 @@ def save_midi(pitches, tempo, rois, file_name):
 
             channel = 0
             pitch = pitch_roi[j]
+            # if j > 0:
+            #     pitch -= 12
             time = total_time
             print j, tempo_roi[j]
             duration = 0.5 / float(tempo_roi[j])

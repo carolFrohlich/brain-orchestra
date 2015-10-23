@@ -8,3 +8,4 @@ def minor_pentatonic(key):
 
 def minor_blues(key):
     return [key, key+3, key+5, key+6, key+7, key+10]
+    

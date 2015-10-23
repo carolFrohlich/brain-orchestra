@@ -37,10 +37,6 @@ def fit_solo(brain, pitches, tempo, rois):
                 ranged_roi[i] = min(right_pitches, key=lambda x:abs(x-phrase_tone_end))
 
             last = i
-            print 'start:', phrase_tone_start, 'end:', phrase_tone_end, 'right:', ranged_roi[i]
-            print 'allowed pitches:', right_pitches
-            print ''
-
 
         #adjust tempo of each phrase: phrases finish with whole note
         # 2: adjust the last element of the phrase to be on the same tone as the first element
